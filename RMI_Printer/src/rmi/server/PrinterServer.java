@@ -10,7 +10,7 @@ public class PrinterServer {
 	public static void main(String[] args) {
 		//确认用户id，密码一致后提供相应服务
 		
-		//该方法为示例方法，请在理解后删除或注释
+		//该方法为示例方法，请在理解后删除或注释。
 		try {
 			IPrinter example =new PrinterImpl();
 			//在主机ip上创建并提供一个“注册表”实例，用来接收指明“端口”的请求
