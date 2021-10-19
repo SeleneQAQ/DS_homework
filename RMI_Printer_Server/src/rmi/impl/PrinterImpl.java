@@ -92,7 +92,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	
 	//校验用户名与密码
 	@Override
-	public void isCustomer(String userName, String userPassword) throws RemoteException {
+	public boolean isCustomer(String userName, String userPassword) throws RemoteException {
 		boolean isFound = false;
 	    String record_userName;
 	    String record_userPassword;
@@ -116,6 +116,12 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	        }catch(Exception e){
 	        	System.out.println(e);
 	        	}
-	    System.out.println(isFound);
+		if(isFound==true) {
+			 System.out.println(userName+"身份校验通过.");
+		}
+		else {
+			 System.out.println("不存在匹配的账号密码.");
+		}
+		return isFound;
 	}
 }
