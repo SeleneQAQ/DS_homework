@@ -8,13 +8,13 @@ import java.rmi.*;
 import java.rmi.server.UnicastRemoteObject;
 import rmi.IPrinter;
 
-//¶Ôµ÷ÓÃ½Ó¿ÚµÄ·½·¨µÄÊµÏÖ
+//å¯¹è°ƒç”¨æ¥å£çš„æ–¹æ³•çš„å®ç°
 public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	public PrinterImpl() throws RemoteException {
 	    super();
 	  }
 	
-	//´òÓ¡²Ù×÷£¬ÔÚ"printer"´òÓ¡»úÉÏ´òÓ¡"filename"ÎÄ¼ş
+	//æ‰“å°æ“ä½œï¼Œåœ¨"printer"æ‰“å°æœºä¸Šæ‰“å°"filename"æ–‡ä»¶
 	@Override
 	public void print(String fileName, String printer) throws RemoteException{
 		String fileContent;
@@ -35,62 +35,62 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 		
 	}
 		
-	//ÏÔÊ¾Ä¿Ç°"printer"µÄ´òÓ¡¶ÓÁĞ£¬ĞèÒªÏÔÊ¾"job number"ºÍ"filename"
+	//æ˜¾ç¤ºç›®å‰"printer"çš„æ‰“å°é˜Ÿåˆ—ï¼Œéœ€è¦æ˜¾ç¤º"job number"å’Œ"filename"
 	@Override
 	public void queue(String printer) throws RemoteException{
 		
 	}
 		
-	//½«"job"ÈÎÎñ·ÅÖÃÔÚ"printer"µÄ´òÓ¡¶ÓÁĞ¶¥¶Ë
+	//å°†"job"ä»»åŠ¡æ”¾ç½®åœ¨"printer"çš„æ‰“å°é˜Ÿåˆ—é¡¶ç«¯
 	@Override
 	public void topQueue(String printer, int job) throws RemoteException{
 		
 	}
 		
-	//¿ªÆô´òÓ¡»ú·şÎñ
+	//å¼€å¯æ‰“å°æœºæœåŠ¡
 	@Override
 	public void start() throws RemoteException{
 		
 	}
 		
-	//¹Ø±Õ´òÓ¡»ú·şÎñ
+	//å…³é—­æ‰“å°æœºæœåŠ¡
 	@Override
 	public void stop() throws RemoteException{
 		
 	}
 		
-	//ÖØÆô´òÓ¡»ú·şÎñ£¬Çå¿Õ´òÓ¡»ú¶ÓÁĞ
+	//é‡å¯æ‰“å°æœºæœåŠ¡ï¼Œæ¸…ç©ºæ‰“å°æœºé˜Ÿåˆ—
 	@Override
-	public void restrat() throws RemoteException{
+	public void restart() throws RemoteException{
 		
 	}
 		
-	//ÏÔÊ¾´òÓ¡»úµÄ×´Ì¬
+	//æ˜¾ç¤ºæ‰“å°æœºçš„çŠ¶æ€
 	@Override
 	public void status(String printer) throws RemoteException{
 		
 	}
 		
-	//¶ÁÈ¡ÓÃ»§²ÎÊı
+	//è¯»å–ç”¨æˆ·å‚æ•°
 	@Override
 	public void readConfig(String parameter) throws RemoteException{
 		
 	}
 		
-	//ÉèÖÃÓÃ»§²ÎÊı
+	//è®¾ç½®ç”¨æˆ·å‚æ•°
 	@Override
 	public void setConfig(String parameter, String value) throws RemoteException{
 		
 	}
 	
-	//¸Ã·½·¨ÎªÊ¾Àı·½·¨£¬Àí½âºóÇë×¢ÊÍµô
+	//è¯¥æ–¹æ³•ä¸ºç¤ºä¾‹æ–¹æ³•ï¼Œç†è§£åè¯·æ³¨é‡Šæ‰
 	@Override
 	public void example(String example) throws RemoteException {
-		 System.out.println(example+"µ÷ÓÃÁËÊ¾Àı·½·¨,¸Ã·½·¨ÊÇÔÚImplÀïÊµÏÖµÄ¡£");
+		 System.out.println(example+"è°ƒç”¨äº†ç¤ºä¾‹æ–¹æ³•,è¯¥æ–¹æ³•æ˜¯åœ¨Implé‡Œå®ç°çš„ã€‚");
 		 return;
 	}
 	
-	//Ğ£ÑéÓÃ»§ÃûÓëÃÜÂë
+	//æ ¡éªŒç”¨æˆ·åä¸å¯†ç 
 	@Override
 	public void isCustomer(String userName, String userPassword) throws RemoteException {
 		boolean isFound = false;
@@ -98,7 +98,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	    String record_userPassword;
 	    String filePath = "login.txt";
         FileInputStream fin;
-        //Ò»ĞĞÒ»ĞĞ¶ÁÈ¡ÓÃ»§ÃûÓëÃÜÂë£¬µ±ÓÃ»§ÃûÃÜÂëÆ¥ÅäÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
+        //ä¸€è¡Œä¸€è¡Œè¯»å–ç”¨æˆ·åä¸å¯†ç ï¼Œå½“ç”¨æˆ·åå¯†ç åŒ¹é…æ—¶è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 		try {
 			fin = new FileInputStream(filePath);
             InputStreamReader reader = new InputStreamReader(fin);
