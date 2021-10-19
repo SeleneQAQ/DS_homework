@@ -35,6 +35,6 @@ public interface IPrinter extends Remote{
 	public void example(String example) throws  java.rmi.RemoteException;
 	
 	//校验用户名与密码
-	public void isCustomer(String userName,String userPassword) throws  java.rmi.RemoteException;
+	public boolean isCustomer(String userName,String userPassword) throws  java.rmi.RemoteException;
 	
 }
