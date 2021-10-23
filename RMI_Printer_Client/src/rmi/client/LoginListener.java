@@ -23,8 +23,8 @@ public class LoginListener implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		try {
-			IPrinter example = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
-			if(example.isCustomer(text_name.getText(), text_password.getText())==true) {
+			IPrinter printerServer = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
+			if(printerServer.isCustomer(text_name.getText(), text_password.getText())==true) {
 				System.out.println("µÇÂ¼³É¹¦£¡");
 				login.setVisible(false);
 				MainFrame mf=new MainFrame();

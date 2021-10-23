@@ -16,10 +16,9 @@ public class PrinterServer {
 			//一个端口一次只能允许一个实例占用，如进程1占用了8888端口，那么其它进程将无法再使用8888端口
 			LocateRegistry.createRegistry(8888);
 			java.rmi.Naming.rebind("rmi://127.0.0.1:8888/server", server);
-			System.out.println("服务器已准备就绪");
+			System.out.println("server is ready");
 		}catch(Exception e) {
-			System.out.println("提供远程对象失败，原因是："+e.getMessage());
+			System.out.println("server is not ready："+e.getMessage());
 		}
 	}
-	
 }

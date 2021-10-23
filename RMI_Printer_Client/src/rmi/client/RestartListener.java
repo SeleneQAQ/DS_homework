@@ -5,19 +5,14 @@ import java.awt.event.ActionListener;
 import java.rmi.Naming;
 
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 
 import rmi.IPrinter;
 
-public class TopQueueListener implements ActionListener{
-	JFrame frame;
+public class RestartListener implements ActionListener{
 	String userName;
-	JComboBox jobCbx;
 	JComboBox printerCbx;
-	public TopQueueListener(JFrame frame, String userName, JComboBox jobCbx, JComboBox printerCbx) {
-		this.frame=frame;
+	public RestartListener(String userName, JComboBox printerCbx) {
 		this.userName=userName;
-		this.jobCbx=jobCbx;
 		this.printerCbx=printerCbx;
 	}
 
@@ -25,10 +20,10 @@ public class TopQueueListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		try {
 			IPrinter printerServer = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
-			printerServer.topQueue(userName,(String)printerCbx.getSelectedItem() , (String)jobCbx.getSelectedItem());
-			frame.invalidate();
+			printerServer.restart(userName, (String)printerCbx.getSelectedItem());
 		} catch (Exception ex) {
 			System.out.println("调用远程对象失败，原因是："+ex.getMessage());
 		}
 	}
+
 }

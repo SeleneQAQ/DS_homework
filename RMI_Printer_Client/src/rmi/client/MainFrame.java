@@ -34,8 +34,8 @@ public class MainFrame {
 		 JButton topQueueBtn=new JButton("TopQueue");
 		 JButton startBtn=new JButton("Start");
 		 JButton stopBtn=new JButton("Stop");
-		 JButton restratBtn=new JButton("Restart");
-		 JButton statusBtn=new JButton("Status");
+		 JButton restartBtn=new JButton("Restart");
+		 JButton statesBtn=new JButton("Status");
 		 JButton readConfigBtn=new JButton("readConfig");
 		 JButton setConfigBtn=new JButton("setConfig");
 		 JButton ExitBtn=new JButton("Exit");
@@ -50,20 +50,21 @@ public class MainFrame {
 		 panel.add(printBtn);
 		 queueBtn.addActionListener(new QueueListener(frame,userName,jobCbx,printerCbx));
 		 panel.add(queueBtn);
-		 
+		 topQueueBtn.addActionListener(new TopQueueListener(frame,userName,jobCbx,printerCbx));
 		 panel.add(topQueueBtn);
+		 startBtn.addActionListener(new StartListener(userName,printerCbx));
 		 panel.add(startBtn);
-		 
+		 stopBtn.addActionListener(new StopListener(userName,printerCbx));
 		 panel.add(stopBtn);
-		 
-		 panel.add(restratBtn);
-		 
-		 panel.add(statusBtn);
+		 restartBtn.addActionListener(new RestartListener(userName,printerCbx));
+		 panel.add(restartBtn);
+		 statesBtn.addActionListener(new StateListener(userName,printerCbx));
+		 panel.add(statesBtn);
 		 
 		 panel.add(readConfigBtn);
 		 
 		 panel.add(setConfigBtn);
-		 
+		 ExitBtn.addActionListener(new ExitListener(frame));
 		 panel.add(ExitBtn);
 		 
 	 }

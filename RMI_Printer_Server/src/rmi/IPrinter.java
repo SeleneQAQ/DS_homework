@@ -11,19 +11,19 @@ public interface IPrinter extends Remote{
 	public String queue(String userName, String printer) throws java.rmi.RemoteException;
 	
 	//将"job"任务放置在"printer"的打印队列顶端
-	public boolean topQueue(String userName, String printer, int job) throws java.rmi.RemoteException;
+	public boolean topQueue(String userName, String printer, String job) throws java.rmi.RemoteException;
 	
 	//开启打印机服务
-	public void start(String userName) throws java.rmi.RemoteException;
+	public void start(String userName,String printer) throws java.rmi.RemoteException;
 	
 	//关闭打印机服务
-	public void stop(String userName) throws java.rmi.RemoteException;
+	public void stop(String userName,String printer) throws java.rmi.RemoteException;
 	
 	//重启打印机服务，清空打印机队列
-	public void restart(String userName) throws java.rmi.RemoteException;
+	public void restart(String userName,String printer) throws java.rmi.RemoteException;
 	
 	//显示打印机的状态
-	public void status(String userName, String printer) throws java.rmi.RemoteException;
+	public String states(String userName, String printer) throws java.rmi.RemoteException;
 	
 	//读取用户参数：id，用户名
 	public void readConfig(String parameter) throws java.rmi.RemoteException;
