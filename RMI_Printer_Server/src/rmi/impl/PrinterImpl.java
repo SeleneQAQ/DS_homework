@@ -16,7 +16,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	
 	//打印操作，在"printer"打印机上打印"filename"文件
 	@Override
-	public void print(String userName, String fileName, String printer) throws RemoteException{
+	public boolean print(String userName, String fileName, String printer) throws RemoteException{
 		String fileContent;
 		String state;
 		boolean printerStates = false;
@@ -48,21 +48,56 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	            System.out.println(printer+" finished.");
 	            }catch(Exception e) {
 	            	System.out.println(e);
+	            	return true;
 			}
 		}
 		else System.out.println(printer+" is not working now!");
+		return false;
 	}
 		
 	//显示目前"printer"的打印队列，需要显示"job number"和"filename"
 	@Override
-	public void queue(String userName, String printer) throws RemoteException{
-
+	public String queue(String userName, String printer) throws RemoteException{
+		String queue;
+		FileInputStream fin;
+		String printerPath="printer/"+printer+".txt";
+		try {
+			fin = new FileInputStream(printerPath);
+			InputStreamReader reader = new InputStreamReader(fin);
+            BufferedReader buffReader = new BufferedReader(reader);
+            while((queue=buffReader.readLine()) != null) {
+            	if(queue.equals("queue")) {
+            		queue=buffReader.readLine();
+            		if(queue!=null) return queue;
+            		else return "";
+            	}
+            }
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return "";
 	}
 		
 	//将"job"任务放置在"printer"的打印队列顶端
 	@Override
-	public void topQueue(String userName, String printer, int job) throws RemoteException{
-		
+	public boolean topQueue(String userName, String printer, int job) throws RemoteException{
+		String queue;
+		FileInputStream fin;
+		String printerPath="printer/"+printer+".txt";
+		try {
+			fin = new FileInputStream(printerPath);
+			InputStreamReader reader = new InputStreamReader(fin);
+            BufferedReader buffReader = new BufferedReader(reader);
+            while((queue=buffReader.readLine()) != null) {
+            	if(queue.equals("queue")) {
+            		queue=buffReader.readLine();
+            		
+            	}
+            }
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return false;
 	}
 		
 	//开启打印机服务

@@ -1,3 +1,4 @@
 state
-start
+stop
 queue
+file_1,file_2,file_3

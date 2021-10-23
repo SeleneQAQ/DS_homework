@@ -46,17 +46,12 @@ public class MainFrame {
 		 panel.add(jobLab);
 		 jobCbx.addItem("file_1");
 		 panel.add(jobCbx);
-		 printBtn.addActionListener(new PrinterListener(userName,(String)jobCbx.getSelectedItem(),(String)printerCbx.getSelectedItem()));
+		 printBtn.addActionListener(new PrinterListener(userName,jobCbx,printerCbx));
 		 panel.add(printBtn);
-		 queueBtn.addActionListener(new QueueListener());
+		 queueBtn.addActionListener(new QueueListener(frame,userName,jobCbx,printerCbx));
 		 panel.add(queueBtn);
 		 
 		 panel.add(topQueueBtn);
-		 startBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			} 
-		 });
 		 panel.add(startBtn);
 		 
 		 panel.add(stopBtn);

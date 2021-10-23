@@ -5,13 +5,13 @@ import java.rmi.Remote;
 public interface IPrinter extends Remote{
 	
 	//打印操作，在"printer"打印机上打印"filename"文件
-	public void print(String userName, String filename, String printer) throws java.rmi.RemoteException;
+	public boolean print(String userName, String filename, String printer) throws java.rmi.RemoteException;
 	
 	//显示目前"printer"的打印队列，需要显示"job number"和"filename"
-	public void queue(String userName, String printer) throws java.rmi.RemoteException;
+	public String queue(String userName, String printer) throws java.rmi.RemoteException;
 	
 	//将"job"任务放置在"printer"的打印队列顶端
-	public void topQueue(String userName, String printer, int job) throws java.rmi.RemoteException;
+	public boolean topQueue(String userName, String printer, int job) throws java.rmi.RemoteException;
 	
 	//开启打印机服务
 	public void start(String userName) throws java.rmi.RemoteException;

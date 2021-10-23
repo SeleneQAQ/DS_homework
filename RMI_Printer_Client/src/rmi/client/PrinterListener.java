@@ -7,23 +7,26 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import javax.swing.JComboBox;
+
 import rmi.IPrinter;
 
 public class PrinterListener implements ActionListener{
 	private String userName;
-	private String printer;
-	private String fileName;
-	public PrinterListener(String userName,String printer,String fileName) {
-		this.userName=userName;
-		this.printer=printer;
-		this.fileName=fileName;
-	}
+	JComboBox jobCbx;
+	JComboBox printerCbx;
 	
+	public PrinterListener(String userName, JComboBox jobCbx, JComboBox printerCbx) {
+		this.userName=userName;
+		this.jobCbx=jobCbx;
+		this.printerCbx=printerCbx;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
 			IPrinter printerServer = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
-			printerServer.print(userName, printer, fileName);
+			printerServer.print(userName, (String)jobCbx.getSelectedItem(), (String)printerCbx.getSelectedItem());
 		} catch (Exception ex) {
 			System.out.println("调用远程对象失败，原因是："+ex.getMessage());
 		}
