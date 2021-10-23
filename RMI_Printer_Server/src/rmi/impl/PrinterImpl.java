@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 import rmi.IPrinter;
 
-//¶Ôµ÷ÓÃ½Ó¿ÚµÄ·½·¨µÄÊµÏÖ
+//å¯¹è°ƒç”¨æ¥å£çš„æ–¹æ³•çš„å®ç°
 public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	public PrinterImpl() throws RemoteException {
 	    super();
 	  }
 	
-	//´òÓ¡²Ù×÷£¬ÔÚ"printer"´òÓ¡»úÉÏ´òÓ¡"filename"ÎÄ¼ş
+	//æ‰“å°æ“ä½œï¼Œåœ¨"printer"æ‰“å°æœºä¸Šæ‰“å°"filename"æ–‡ä»¶
 	@Override
 	public boolean print(String userName, String fileName, String printer) throws RemoteException{
 		String fileContent;
@@ -64,7 +64,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 		return false;
 	}
 		
-	//ÏÔÊ¾Ä¿Ç°"printer"µÄ´òÓ¡¶ÓÁĞ£¬ĞèÒªÏÔÊ¾"job number"ºÍ"filename"
+	//æ˜¾ç¤ºç›®å‰"printer"çš„æ‰“å°é˜Ÿåˆ—ï¼Œéœ€è¦æ˜¾ç¤º"job number"å’Œ"filename"
 	@Override
 	public String queue(String userName, String printer) throws RemoteException{
 		String queue;
@@ -88,7 +88,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 		return "";
 	}
 		
-	//½«"job"ÈÎÎñ·ÅÖÃÔÚ"printer"µÄ´òÓ¡¶ÓÁĞ¶¥¶Ë
+	//å°†"job"ä»»åŠ¡æ”¾ç½®åœ¨"printer"çš„æ‰“å°é˜Ÿåˆ—é¡¶ç«¯
 	@Override
 	public boolean topQueue(String userName, String printer, String job) throws RemoteException{
 		String temp = "";
@@ -99,13 +99,13 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuffer buf = new StringBuffer();
-            // ±£´æ¸ÃĞĞÇ°ÃæµÄÄÚÈİ
+            // ä¿å­˜è¯¥è¡Œå‰é¢çš„å†…å®¹
             for (int j = 1; (temp = br.readLine()) != null
                     && !temp.equals("queue"); j++) {
                 buf = buf.append(temp);
                 buf = buf.append(System.getProperty("line.separator"));
             }
-            // ½«ÄÚÈİ²åÈë
+            // å°†å†…å®¹æ’å…¥
             buf = buf.append("queue");
             buf = buf.append(System.getProperty("line.separator"));
             temp=br.readLine();
@@ -117,7 +117,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
             	}
             }
             buf.append(s1);
-            // ±£´æ¸ÃĞĞºóÃæµÄÄÚÈİ
+            // ä¿å­˜è¯¥è¡Œåé¢çš„å†…å®¹
             br.close();
             FileOutputStream fos = new FileOutputStream(file);
             PrintWriter pw = new PrintWriter(fos);
@@ -130,7 +130,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 		return false;
 	}
 		
-	//¿ªÆô´òÓ¡»ú·şÎñ
+	//å¼€å¯æ‰“å°æœºæœåŠ¡
 	@Override
 	public void start(String userName,String printer) throws RemoteException{
         String temp = "";
@@ -141,15 +141,15 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuffer buf = new StringBuffer();
-            // ±£´æ¸ÃĞĞÇ°ÃæµÄÄÚÈİ
+            // ä¿å­˜è¯¥è¡Œå‰é¢çš„å†…å®¹
             for (int j = 1; (temp = br.readLine()) != null
                     && !temp.equals("stop"); j++) {
                 buf = buf.append(temp);
                 buf = buf.append(System.getProperty("line.separator"));
             }
-            // ½«ÄÚÈİ²åÈë
+            // å°†å†…å®¹æ’å…¥
             buf = buf.append("start");
-            // ±£´æ¸ÃĞĞºóÃæµÄÄÚÈİ
+            // ä¿å­˜è¯¥è¡Œåé¢çš„å†…å®¹
             while ((temp = br.readLine()) != null) {
                 buf = buf.append(System.getProperty("line.separator"));
                 buf = buf.append(temp);
@@ -165,7 +165,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
         }
 	}
 		
-	//¹Ø±Õ´òÓ¡»ú·şÎñ
+	//å…³é—­æ‰“å°æœºæœåŠ¡
 	@Override
 	public void stop(String userName,String printer) throws RemoteException{
 		String temp = "";
@@ -176,15 +176,15 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuffer buf = new StringBuffer();
-            // ±£´æ¸ÃĞĞÇ°ÃæµÄÄÚÈİ
+            // ä¿å­˜è¯¥è¡Œå‰é¢çš„å†…å®¹
             for (int j = 1; (temp = br.readLine()) != null
                     && !temp.equals("start"); j++) {
                 buf = buf.append(temp);
                 buf = buf.append(System.getProperty("line.separator"));
             }
-            // ½«ÄÚÈİ²åÈë
+            // å°†å†…å®¹æ’å…¥
             buf = buf.append("stop");
-            // ±£´æ¸ÃĞĞºóÃæµÄÄÚÈİ
+            // ä¿å­˜è¯¥è¡Œåé¢çš„å†…å®¹
             while ((temp = br.readLine()) != null) {
                 buf = buf.append(System.getProperty("line.separator"));
                 buf = buf.append(temp);
@@ -200,7 +200,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
         }
 	}
 		
-	//ÖØÆô´òÓ¡»ú·şÎñ£¬Çå¿Õ´òÓ¡»ú¶ÓÁĞ
+	//é‡å¯æ‰“å°æœºæœåŠ¡ï¼Œæ¸…ç©ºæ‰“å°æœºé˜Ÿåˆ—
 	@Override
 	public void restart(String userName,String printer) throws RemoteException{
 		String temp = "";
@@ -211,13 +211,13 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuffer buf = new StringBuffer();
-            // ±£´æ¸ÃĞĞÇ°ÃæµÄÄÚÈİ
+            // ä¿å­˜è¯¥è¡Œå‰é¢çš„å†…å®¹
             for (int j = 1; (temp = br.readLine()) != null
                     && (!temp.equals("start")&&!temp.equals("stop")); j++) {
                 buf = buf.append(temp);
                 buf = buf.append(System.getProperty("line.separator"));
             }
-            // ½«ÄÚÈİ²åÈë
+            // å°†å†…å®¹æ’å…¥
             buf = buf.append("stop");
             while ((temp = br.readLine()) != null&&temp.equals("queue")) {
                 buf = buf.append(System.getProperty("line.separator"));
@@ -234,7 +234,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
         }
 	}
 		
-	//ÏÔÊ¾´òÓ¡»úµÄ×´Ì¬
+	//æ˜¾ç¤ºæ‰“å°æœºçš„çŠ¶æ€
 	@Override
 	public String states(String userName, String printer) throws RemoteException{
 		String state;
@@ -258,60 +258,31 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 		return "";
 	}
 		
-	//¶ÁÈ¡ÓÃ»§²ÎÊı
+	//è¯»å–ç”¨æˆ·å‚æ•°
 	@Override
 	public void readConfig(String parameter) throws RemoteException{
 		
 	}
 		
-	//ÉèÖÃÓÃ»§²ÎÊı
+	//è®¾ç½®ç”¨æˆ·å‚æ•°
 	@Override
 	public void setConfig(String parameter, String value) throws RemoteException{
 		
 	}
 	
-	//¸Ã·½·¨ÎªÊ¾Àı·½·¨£¬Àí½âºóÇë×¢ÊÍµô
+	//è¯¥æ–¹æ³•ä¸ºç¤ºä¾‹æ–¹æ³•ï¼Œç†è§£åè¯·æ³¨é‡Šæ‰
 	@Override
 	public void example(String example) throws RemoteException {
-		 System.out.println(example+"µ÷ÓÃÁËÊ¾Àı·½·¨,¸Ã·½·¨ÊÇÔÚImplÀïÊµÏÖµÄ¡£");
+		 System.out.println(example+"è°ƒç”¨äº†ç¤ºä¾‹æ–¹æ³•,è¯¥æ–¹æ³•æ˜¯åœ¨Implé‡Œå®ç°çš„ã€‚");
 		 return;
 	}
 	
-	//Ğ£ÑéÓÃ»§ÃûÓëÃÜÂë
+	//æ ¡éªŒç”¨æˆ·åä¸å¯†ç 
 	@Override
 	public boolean isCustomer(String userName, String userPassword) throws RemoteException {
-		boolean isFound = false;
-	    String record_userName;
-	    String record_userPassword;
-	    String filePath = "login.txt";
-        FileInputStream fin;
-        //Ò»ĞĞÒ»ĞĞ¶ÁÈ¡ÓÃ»§ÃûÓëÃÜÂë£¬µ±ÓÃ»§ÃûÃÜÂëÆ¥ÅäÊ±·µ»Øtrue£¬·ñÔò·µ»Øfalse
-		try {
-			fin = new FileInputStream(filePath);
-            InputStreamReader reader = new InputStreamReader(fin);
-            BufferedReader buffReader = new BufferedReader(reader);
-	        while ((record_userName=buffReader.readLine()) != null){
-	        	if(record_userName.equals("user"))
-	        		record_userName=buffReader.readLine();
-	        	if (userName.equals(record_userName)) {
-	            	record_userPassword=buffReader.readLine();
-	            	if(userName.equals(record_userName)&&userPassword.equals(record_userPassword)) {
-	            		isFound=true;
-	            		}
-	            	}
-	        	}
-	        buffReader.close();
-	        buffReader = null;
-	        }catch(Exception e){
-	        	System.out.println(e);
-	        	}
-		if(isFound==true) {
-			 System.out.println(userName+"login success.");
-		}
-		else {
-			 System.out.println(userName+"login failed.");
-		}
-		return isFound;
+		String filePath = "./RMI_Printer_Server/login.txt";
+		PasswordAuthentication pwdAuth = new PasswordAuthentication();
+		return pwdAuth.passwordAuthentication(userName, userPassword, filePath);
 	}
 
 
