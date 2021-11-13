@@ -56,9 +56,9 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	            	System.out.println(fileContent);
 	            	}
 	            System.out.println(printer+" finished.");
+	            return true;
 	            }catch(Exception e) {
 	            	System.out.println(e);
-	            	return true;
 			}
 		}
 		else System.out.println(printer+" is not working now!");
@@ -94,6 +94,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	public boolean topQueue(String userName, String printer, String job) throws RemoteException{
 		String temp = "";
         String printerPath="printer/"+printer+".txt";
+        System.out.println(userName+" is trying to put "+job+"into the top of "+printer+"'s queue");
         try {
             File file = new File(printerPath);
             FileInputStream fis = new FileInputStream(file);
@@ -133,15 +134,17 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 		
 	//开启打印机服务
 	@Override
-	public void start(String userName,String printer) throws RemoteException{
+	public boolean start(String userName,String printer) throws RemoteException{
         String temp = "";
         String printerPath="printer/"+printer+".txt";
+        boolean result=false;
         try {
             File file = new File(printerPath);
             FileInputStream fis = new FileInputStream(file);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             StringBuffer buf = new StringBuffer();
+            System.out.println(userName+" is trying to start "+printer+"'s state ");
             // 保存该行前面的内容
             for (int j = 1; (temp = br.readLine()) != null
                     && !temp.equals("stop"); j++) {
@@ -150,6 +153,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
             }
             // 将内容插入
             buf = buf.append("start");
+            result=true;
             // 保存该行后面的内容
             while ((temp = br.readLine()) != null) {
                 buf = buf.append(System.getProperty("line.separator"));
@@ -164,13 +168,16 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
 	}
 		
 	//关闭打印机服务
 	@Override
-	public void stop(String userName,String printer) throws RemoteException{
+	public boolean stop(String userName,String printer) throws RemoteException{
 		String temp = "";
         String printerPath="printer/"+printer+".txt";
+        System.out.println(userName+" is trying to stop "+printer+"'s state ");
+        boolean result= false;
         try {
             File file = new File(printerPath);
             FileInputStream fis = new FileInputStream(file);
@@ -185,6 +192,7 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
             }
             // 将内容插入
             buf = buf.append("stop");
+            result=true;
             // 保存该行后面的内容
             while ((temp = br.readLine()) != null) {
                 buf = buf.append(System.getProperty("line.separator"));
@@ -199,13 +207,15 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
 	}
 		
 	//重启打印机服务，清空打印机队列
 	@Override
-	public void restart(String userName,String printer) throws RemoteException{
+	public boolean restart(String userName,String printer) throws RemoteException{
 		String temp = "";
         String printerPath="printer/"+printer+".txt";
+        System.out.println(userName+" is trying to restart "+printer+"'s state ");
         try {
             File file = new File(printerPath);
             FileInputStream fis = new FileInputStream(file);
@@ -230,9 +240,11 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
             pw.write(buf.toString().toCharArray());
             pw.flush();
             pw.close();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
 	}
 		
 	//显示打印机的状态
@@ -261,21 +273,20 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 		
 	//读取用户参数
 	@Override
-	public void readConfig(String parameter) throws RemoteException{
-		
+	public void readConfig(String userName,String parameter) throws RemoteException{
+		System.out.println(userName+" is trying to read "+parameter+"'s config");
 	}
 		
 	//设置用户参数
 	@Override
-	public void setConfig(String parameter, String value) throws RemoteException{
-		
+	public void setConfig(String userName,String parameter, String value) throws RemoteException{
+		System.out.println(userName+" is trying to set "+value+" to "+parameter);
 	}
 	
 	//该方法为示例方法，理解后请注释掉
 	@Override
 	public void example(String example) throws RemoteException {
-		 System.out.println(example+"调用了示例方法,该方法是在Impl里实现的。");
-		 return;
+		 System.out.println(example+"This is an example.");
 	}
 	
 	//校验用户名与密码
@@ -283,7 +294,32 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 	public boolean isCustomer(String userName, String userPassword) throws RemoteException {
 		String filePath = "login.txt";
 		PasswordAuthentication pwdAuth = new PasswordAuthentication();
-		return pwdAuth.passwordAuthentication(userName, userPassword, filePath);
+		boolean result = pwdAuth.passwordAuthentication(userName, userPassword, filePath);
+		System.out.println(userName+" is trying to login, and the result is "+result);
+		return result;
 	}
 
+	@Override
+	public String accessControl(String userName) throws RemoteException {
+		String state;
+		FileInputStream fin;
+		String printerPath="access_control/ACL.txt";
+		try {
+			fin = new FileInputStream(printerPath);
+			InputStreamReader reader = new InputStreamReader(fin);
+            BufferedReader buffReader = new BufferedReader(reader);
+            while((state=buffReader.readLine()) != null) {
+            	if(state.equals(userName)) {
+            		state=buffReader.readLine();
+            		if(state!=null) return state;
+            		else return "";
+            	}
+            }
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return "";
+	}
+	
+	
 }

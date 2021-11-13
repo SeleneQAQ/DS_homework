@@ -8,22 +8,33 @@ import javax.swing.JComboBox;
 
 import rmi.IPrinter;
 
-public class RestartListener implements ActionListener{
+public class RestartListener implements ActionListener {
 	String userName;
 	JComboBox printerCbx;
-	public RestartListener(String userName, JComboBox printerCbx) {
-		this.userName=userName;
-		this.printerCbx=printerCbx;
+	int right;
+
+	public RestartListener(String userName, JComboBox printerCbx, char c) {
+		this.userName = userName;
+		this.printerCbx = printerCbx;
+		this.right = Integer.parseInt(String.valueOf(c));
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			IPrinter printerServer = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
-			printerServer.restart(userName, (String)printerCbx.getSelectedItem());
-		} catch (Exception ex) {
-			System.out.println("调用远程对象失败，原因是："+ex.getMessage());
+		if (right == 0) {
+			System.out.println("restart failed, you don't have right");
+		} else if (right == 1) {
+			try {
+				boolean result = false;
+				IPrinter printerServer = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
+				result = printerServer.restart(userName, (String) printerCbx.getSelectedItem());
+				if (result == true)
+					System.out.println("restart successful");
+				else if (result == false)
+					System.out.println("restart failed");
+			} catch (Exception ex) {
+				System.out.println("error：" + ex.getMessage());
+			}
 		}
 	}
-
 }

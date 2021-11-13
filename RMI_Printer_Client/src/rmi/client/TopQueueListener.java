@@ -9,26 +9,39 @@ import javax.swing.JFrame;
 
 import rmi.IPrinter;
 
-public class TopQueueListener implements ActionListener{
+public class TopQueueListener implements ActionListener {
 	JFrame frame;
 	String userName;
 	JComboBox jobCbx;
 	JComboBox printerCbx;
-	public TopQueueListener(JFrame frame, String userName, JComboBox jobCbx, JComboBox printerCbx) {
-		this.frame=frame;
-		this.userName=userName;
-		this.jobCbx=jobCbx;
-		this.printerCbx=printerCbx;
+	int right;
+
+	public TopQueueListener(JFrame frame, String userName, JComboBox jobCbx, JComboBox printerCbx, char c) {
+		this.frame = frame;
+		this.userName = userName;
+		this.jobCbx = jobCbx;
+		this.printerCbx = printerCbx;
+		this.right = Integer.parseInt(String.valueOf(c));
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			IPrinter printerServer = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
-			printerServer.topQueue(userName,(String)printerCbx.getSelectedItem() , (String)jobCbx.getSelectedItem());
-			frame.invalidate();
-		} catch (Exception ex) {
-			System.out.println("调用远程对象失败，原因是："+ex.getMessage());
+		if (right == 0) {
+			System.out.println("topqueue failed, you don't have right");
+		} else if (right == 1) {
+			try {
+				boolean result = false;
+				IPrinter printerServer = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
+				result = printerServer.topQueue(userName, (String) printerCbx.getSelectedItem(),
+						(String) jobCbx.getSelectedItem());
+				if (result == true)
+					System.out.println("topqueue successful");
+				else if (result == false)
+					System.out.println("topqueue failed");
+				frame.invalidate();
+			} catch (Exception ex) {
+				System.out.println("error：" + ex.getMessage());
+			}
 		}
 	}
 }

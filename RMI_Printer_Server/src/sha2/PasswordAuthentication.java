@@ -17,14 +17,12 @@ public class PasswordAuthentication {
             while (line != null) {
                 temp = line.split(" ");
                 if(userName.equals(temp[0])&&sha2.SHA2WithSalt(passWord, true, temp[1]).equals(temp[1])){
-                    System.out.println("log in successfully!");
                     type = true;
                     break;
                 }
                 line = reader.readLine();
             }
             if(!type){
-                System.out.println("Wrong username or password!");
             }
             reader.close();
         } catch (IOException e) {

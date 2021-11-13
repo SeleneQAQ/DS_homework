@@ -25,16 +25,16 @@ public class LoginListener implements ActionListener {
 		try {
 			IPrinter printerServer = (IPrinter) Naming.lookup("rmi://127.0.0.1:8888/server");
 			if(printerServer.isCustomer(text_name.getText(), text_password.getText())==true) {
-				System.out.println("登录成功！");
+				System.out.println("login success！");
 				login.setVisible(false);
 				MainFrame mf=new MainFrame();
 				mf.init(text_name.getText());
 			}
 			else {
-				System.out.println("登录失败！");
+				System.out.println("login failed！");
 			}
 		}catch(Exception ex) {
-			System.out.println("调用远程对象失败，原因是："+ex.getMessage());
+			System.out.println("error："+ex.getMessage());
 		}
 	}
 }
