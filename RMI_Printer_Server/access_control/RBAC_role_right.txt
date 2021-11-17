@@ -1,8 +1,0 @@
-manager
-111111111
-janitor
-000111111
-power user
-111001000
-ordinary users
-110000000

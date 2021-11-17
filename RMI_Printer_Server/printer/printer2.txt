@@ -1,4 +1,0 @@
-state
-stop
-queue
-file_1,file_2,file_3,file_4
