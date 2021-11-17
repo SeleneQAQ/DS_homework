@@ -298,26 +298,42 @@ public class PrinterImpl extends UnicastRemoteObject implements IPrinter{
 		System.out.println(userName+" is trying to login, and the result is "+result);
 		return result;
 	}
-
+	
+	//
 	@Override
 	public String accessControl(String userName) throws RemoteException {
-		String state;
+		String role;
+		String state = "";
+		String right;
 		FileInputStream fin;
-		String printerPath="access_control/ACL.txt";
+		FileInputStream fin_1;
+		String printerPath="access_control/RBAC_user_role.txt";
+		String printerPath_1="access_control/RBAC_role_right.txt";
 		try {
 			fin = new FileInputStream(printerPath);
 			InputStreamReader reader = new InputStreamReader(fin);
             BufferedReader buffReader = new BufferedReader(reader);
-            while((state=buffReader.readLine()) != null) {
-            	if(state.equals(userName)) {
-            		state=buffReader.readLine();
-            		if(state!=null) return state;
+            while((role=buffReader.readLine()) != null) {
+            	if(role.equals(userName)) {
+            		role=buffReader.readLine();
+            		if(role!=null) state=role;
+            	}
+            }
+			fin_1 = new FileInputStream(printerPath_1);
+			InputStreamReader reader_1 = new InputStreamReader(fin_1);
+            BufferedReader buffReader_1 = new BufferedReader(reader_1);
+            while((right=buffReader_1.readLine()) != null) {
+            	if(right.equals(state)) {
+            		right=buffReader_1.readLine();
+            		System.out.println(right);
+            		if(right!=null) return right;
             		else return "";
             	}
             }
 		}catch(Exception e) {
 			System.out.println(e);
 		}
+		
 		return "";
 	}
 	
